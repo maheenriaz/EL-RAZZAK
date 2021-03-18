@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "499005319478",
+    "project_id": "elrazzak-b66df",
+    "storage_bucket": "elrazzak-b66df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499005319478:android:dfb7f14c2708f0de1e2b97",
+        "android_client_info": {
+          "package_name": "com.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499005319478-rc9kfrhvahk3m45uib8c89r9tsm280ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGGVv1FXq4z6-eq9k_-WWrAGv9pAyfkPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499005319478-rc9kfrhvahk3m45uib8c89r9tsm280ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
