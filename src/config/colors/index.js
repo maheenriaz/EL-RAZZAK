@@ -1,30 +1,11 @@
 const Colors = {
-  dark: {
-    backgroundColor:'rgb(37,37,55)',
-    WhiteOpacity: (opacity) => `rgba(255, 255, 255, ${opacity})`,
-    BlackOpacity: (opacity) => `rgba(0, 0, 0, ${opacity})`,
-    Transparent: 'transparent',
-    White: '#000',
-    Black: '#fff',
-    primary: 'rgb(27,0,217)',
-    secondary: '#f0d9d7',
-    Color2: '#678ba5',
-    Color1: '#65b4ce',
-    lightGrey: '#f0f0f0',
-    lightestGrey: 'grey',
-    // lightestGrey: '#f4f4f4',
-    grey: 'black',
-    green: 'green',
-    red: 'red',
-  },
-  light: {
-    backgroundColor: '#fff',
+  backgroundColor: '#fff',
     WhiteOpacity: (opacity) => `rgba(255, 255, 255, ${opacity})`,
     BlackOpacity: (opacity) => `rgba(0, 0, 0, ${opacity})`,
     Transparent: 'transparent',
     Black: '#000',
     White: '#fff',
-    primary: 'rgb(27,0,217)',
+    primary: '#2d9bf2',
     secondary: '#f0d9d7',
     Color2: '#678ba5',
     Color1: '#65b4ce',
@@ -33,7 +14,6 @@ const Colors = {
     grey: 'grey',
     green: 'green',
     red: 'red',
-  },
 };
 
 export default Colors;

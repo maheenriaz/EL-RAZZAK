@@ -1,71 +1,71 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, StatusBar,AsyncStorage,Alert} from 'react-native';
+import { View, Text, StyleSheet, Dimensions, StatusBar, AsyncStorage, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import {moderateScaleVertical, textScale} from '../containers/Responsive/index';
+import { moderateScaleVertical, textScale } from '../containers/Responsive/index';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import { Colors } from '../config';
+import { connect } from 'react-redux';
 
 class HeaderCustom extends React.Component {
   _menu = null;
- 
+
   setMenuRef = ref => {
     this._menu = ref;
   };
- 
-  hideMenu = (value) => {
-    if(value === 'true'){
-      this.props.navigation.navigate("Login")
-    }
-    else{
-      this.userLogout()
-    }
+
+  hideMenu = () => {
     this._menu.hide();
   };
   userLogout = () => {
-    auth().signOut()
-    .then(()=>{
-       AsyncStorage.removeItem('list',()=>{
-        this.setState({logout:false});
-         console.log("deleted")
-       })
-       
-      this.props.navigation.navigate("Login")
-    }).catch((err)=>alert(JSON.stringify(err)))
+    this.hideMenu()
+    setTimeout(() => {
+      this.props.saveUserInRedux(null)
+    }, 1000);
+    this.props.navigation.navigate("Login")
   }
   showMenu = () => {
     this._menu.show();
   };
- render(){
-    const {navigation,title,back,rightIcon,mode,onPressBack} = this.props;
+  render() {
+    const { navigation, title, back, rightIcon, mode, user: { name } } = this.props;
     return (
-      <View style={{width:'100%'}}>
-      <StatusBar barStyle="dark-content" translucent/>
-      <View style={{marginTop:getStatusBarHeight(),paddingVertical:10,flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-      <View style={{position:'absolute',left:10}}>
-      {this.props.menu ? <Menu
-          ref={this.setMenuRef} 
-          button={ <Icon  name="ellipsis-vertical-sharp" size={17} color='#037276' style={{marginLeft:moderateScaleVertical(10)}} onPress={this.showMenu} />}
-          >
-          <MenuItem onPress={this.hideMenu}>Logout</MenuItem>
-          <MenuDivider />
-        </Menu>
-        :
-        <TouchableOpacity onPress={onPressBack}><Icon name="ios-arrow-back" size={22} family="Ionicons" /></TouchableOpacity>}  
+      <View style={{ width: '100%', backgroundColor: Colors.primary }}>
+        <StatusBar barStyle="light-content" translucent />
+        <View style={{ marginTop: getStatusBarHeight(), padding: 10,paddingHorizontal:15, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+
+          <Text style={{ fontSize: textScale(22), color: 'white' }}>{`Welcome, ${name}!`}</Text>
+            <Menu
+              ref={this.setMenuRef}
+              button={<Icon name="ellipsis-vertical-sharp" size={22} color='white' onPress={this.showMenu}/>}
+            >
+              <MenuItem onPress={this.userLogout}>Logout</MenuItem>
+              <MenuDivider />
+            </Menu>
         </View>
-      <Text style={{fontSize:textScale(20)}}>{title ? title : "Restaurant Menu"}</Text>
-       <View/>
-       </View>
-   </View>
+      </View>
     )
   }
-  
+
 }
-    
-export default HeaderCustom
+
+function mapState({ reducer: { user } }) {
+  return ({
+    user,
+  })
+}
+function mapDispatch(dispatch) {
+  return ({
+    saveUserInRedux: (user) => {
+      dispatch({ type: "SAVE_USER", payload: user })
+    }
+  })
+}
+export default connect(mapState, mapDispatch)(HeaderCustom)
 
 const styles = StyleSheet.create({
-  
+
 })

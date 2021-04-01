@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Linking,TouchableOpacity,TextInput,ActivityIndicator,Image,KeyboardAvoidingView,StatusBar,FlatList,ScrollView,AsyncStorage} from 'react-native';
+import {View, Text, StyleSheet, Linking,TouchableOpacity,TextInput,ActivityIndicator,Image,StatusBar,FlatList,ScrollView,AsyncStorage} from 'react-native';
 import HeaderCustom from '../../components/HeaderCustom';
 import { TouchableNativeFeedback } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
