@@ -18,6 +18,7 @@ class UserView extends React.Component {
       .onSnapshot((querySnapshot) => {
         var alldata = []
         querySnapshot.forEach((doc) => {
+          if(doc.data()?.restaurant?.name)
           alldata.push(doc.data())
         });
         this.setState({ restaurants: alldata, loader: false })
