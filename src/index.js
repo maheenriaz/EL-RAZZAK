@@ -2,7 +2,7 @@
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 //Screens
-import {Login,ForgotPass,Signup,RestaurantArea,UserView,AddRestaurant} from './containers';
+import {Login,ForgotPass,Signup,UserView} from './containers';
 
 console.disableYellowBox = true;
 

@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Linking, TouchableOpacity, TextInput, ActivityIndicator, Image, StatusBar, FlatList, ScrollView, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import HeaderCustom from '../../components/HeaderCustom';
-import { textScale, moderateScaleVertical, moderateScale } from '../Responsive/index';
+import { textScale, moderateScaleVertical } from '../Responsive/index';
 import firestore from '@react-native-firebase/firestore'
 import { connect } from 'react-redux';
-import { Loader } from '../../config';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Loader, Colors } from '../../config';
 import SplashScreen from 'react-native-splash-screen';
 
 
@@ -28,26 +27,49 @@ class UserView extends React.Component {
     SplashScreen.hide();
     this.getData()
   }
+  updatePlate = (ownerRestaurant,index) =>{
+    let restaurant = ownerRestaurant.restaurant
+    restaurant.addplate[index] = {booked:true}
+    firestore().collection('OwnerRestaurant').doc(ownerRestaurant.uid)
+    .update({
+      restaurant,
+    })
+
+  }
   _renderItem = ({ item }) => {
+    const {restaurant} = item
     return (
       <View style={{ borderColor: "#E1E1E1", borderWidth: 1, marginTop: moderateScaleVertical(10) }}>
-        <Image style={{ width: "100%", height: 220, resizeMode: "cover" }} source={{ uri: item.img }} />
+        <Image style={{ width: "100%", height: 220, resizeMode: "cover" }} source={{ uri: restaurant.img }} />
         <View style={{ padding: 10 }}>
-
-          <Text style={{ fontSize: textScale(18), marginBottom: 3, fontWeight: 'bold' }}>{item.name}</Text>
-          <Text style={{ fontSize: textScale(16), marginBottom: 3 }}>{item.email}</Text>
-          <Text style={{ fontSize: textScale(16), marginBottom: 3 }}>{item.address}</Text>
+          <Text style={{ fontSize: textScale(18), marginBottom: 3, fontWeight: 'bold' }}>{restaurant.name}</Text>
+          <Text style={{ fontSize: textScale(16), marginBottom: 3 }}>{restaurant.email}</Text>
+          <Text style={{ fontSize: textScale(16), marginBottom: 3 }}>{restaurant.address}</Text>
+          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
+            <Text style={{ fontSize: textScale(16), marginBottom: 3 }}>Number of Total Plates</Text>
+            <Text style={{ fontSize: textScale(22), marginBottom: 3, fontWeight: "bold" }}>{restaurant.addplate.length}</Text>
+          </View>
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
             <Text style={{ fontSize: textScale(16), marginBottom: 3 }}>Number of Available Plates</Text>
-            <Text style={{ fontSize: textScale(22), marginBottom: 3, fontWeight: "bold" }}>{item.addplate}</Text>
+            <Text style={{ fontSize: textScale(22), marginBottom: 3, fontWeight: "bold" }}>{restaurant.addplate.filter((plate)=>!plate.booked).length}</Text>
+          </View>
+          <View style={{flexDirection:'row',flexWrap:'wrap'}}>
+            {restaurant?.addplate.map((plate,index)=>{
+              const {booked} = plate
+              return <TouchableOpacity
+              onPress={()=>{
+                if(!booked)
+                this.updatePlate(item,index)
+              }}
+              key={index} style={{padding:5,borderWidth:booked?0:1,borderColor: Colors.primary,backgroundColor: booked ? Colors.primary:"white",margin:3}}><Text style={{color:booked?'white':'black'}}>{`Plate ${index+1}`}</Text></TouchableOpacity>
+            })}
           </View>
         </View>
-
       </View>
     );
   }
   _listHeader = () => {
-    return <Text style={{ fontSize: textScale(18), fontWeight: "bold" }}>Browse Restaurants</Text>;
+    return <Text style={{ fontSize: textScale(22), fontWeight: "bold",color:Colors.primary }}>Browse Restaurants</Text>;
   }
   render() {
 
