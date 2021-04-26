@@ -2,7 +2,7 @@
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 //Screens
-import {Login,ForgotPass,Signup,UserView} from './containers';
+import {Login,ForgotPass,Signup,UserView,EditProfile} from './containers';
 
 console.disableYellowBox = true;
 
@@ -21,6 +21,7 @@ const LoginStack = createStackNavigator(
 const AppStack = createStackNavigator(
   {
     UserView: {screen: UserView},
+    EditProfile: {screen: EditProfile},
  },
   {
     initialRouteName: 'UserView',

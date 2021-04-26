@@ -64,7 +64,6 @@ class Login extends React.Component {
                     <Text style={{marginBottom:20,color:Colors.primary,fontSize:24,fontWeight:'bold'}}>Welcome Back!</Text>
                     <CustomTextInput
                       icon="login"
-                      mode="contained"
                       placeholder="Enter Email"
                       autoCapitalize="none"
                       placeholderTextColor="grey"

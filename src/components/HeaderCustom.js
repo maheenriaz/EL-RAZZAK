@@ -27,6 +27,10 @@ class HeaderCustom extends React.Component {
     }, 1000);
     this.props.navigation.navigate("Login")
   }
+  editProfile = () => {
+    this.hideMenu()
+    this.props.navigation.navigate("EditProfile")
+  }
   showMenu = () => {
     this._menu.show();
   };
@@ -42,6 +46,7 @@ class HeaderCustom extends React.Component {
               ref={this.setMenuRef}
               button={<Icon name="ellipsis-vertical-sharp" size={22} color='white' onPress={this.showMenu}/>}
             >
+              <MenuItem onPress={this.editProfile}>Edit Profile</MenuItem>
               <MenuItem onPress={this.userLogout}>Logout</MenuItem>
               <MenuDivider />
             </Menu>
